@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Phone Bill</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
+    <script src="//unpkg.com/alpinejs" defer></script>
+
+</head>
+
+<body>
+    <div x-data="phoneBillApp()">
+        <h1>Total Phone Bill</h1>
+
+        <div>
+            <label for="price_plan">Select Price Plan:</label>
+            <select id="price_plan" x-model="selectedPlan">
+                <template x-for="plan in pricePlans" :key="plan.id">
+                    <option :value="plan.plan_name" x-text="plan.plan_name"></option>
+                </template>
+            </select>
+        </div>
+
+        <div>
+            <label for="actions">Actions:</label>
+            <input type="text" id="actions" x-model="actions">
+        </div>
+
+        <button @click="calculateBill">Calculate</button>
+
+        <div>
+            <h2>Total: <span x-text="total"></span></h2>
+        </div>
+    </div>
+
+</body>
+
+</html>
