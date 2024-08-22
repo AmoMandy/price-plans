@@ -1,41 +1,43 @@
-<!DOCTYPE html>
+<<!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phone Bill</title>
-    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
-    <script src="//unpkg.com/alpinejs" defer></script>
-
+    <title>Total Phone Bill</title>
+    <script defer src="//unpkg.com/alpinejs"></script>`
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
 </head>
-
 <body>
-    <div x-data="phoneBillApp()">
+    <div x-data="phoneBillCalculator()" x-init="init" class="container">
         <h1>Total Phone Bill</h1>
 
+        <!-- Price Plan Selection -->
         <div>
-            <label for="price_plan">Select Price Plan:</label>
-            <select id="price_plan" x-model="selectedPlan">
+            <label for="pricePlan">Select Price Plan:</label>
+            <select id="pricePlan" x-model="selectedPlan">
                 <template x-for="plan in pricePlans" :key="plan.id">
                     <option :value="plan.plan_name" x-text="plan.plan_name"></option>
                 </template>
             </select>
         </div>
 
+        <!-- Actions Input -->
         <div>
-            <label for="actions">Actions:</label>
-            <input type="text" id="actions" x-model="actions">
+            <label for="actions">Enter Actions</label>
+            <input type="text" id="actions" x-model="actions" placeholder="call, sms, call"></input>
         </div>
 
-        <button @click="calculateBill">Calculate</button>
-
+        <!-- Calculate Button -->
         <div>
-            <h2>Total: <span x-text="total"></span></h2>
+            <button @click="calculateBill">Calculate Total</button>
+        </div>
+
+        <!-- Display Total -->
+        <div x-show="total !== null">
+            <h2>Total Cost: <span x-text="total"></span></h2>
         </div>
     </div>
 
+    <script src="./alpine.js"></script>
 </body>
-
 </html>

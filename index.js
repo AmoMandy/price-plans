@@ -2,18 +2,22 @@ import express from 'express';
 import * as sqlite from 'sqlite';
 import sqlite3 from 'sqlite3';
 
+
 const app = express();
 const PORT = process.env.PORT || 4011;
-app.listen(PORT, () => `Server started ${PORT}`)
+app.listen(PORT, () => {
+    console.log(`Server started ${PORT}`);
+});
+
 
 app.use(express.static('public'))
 app.use(express.json())
 
 
 
-const  db = await sqlite.open({
-    filename:  './data_plan.db',
-    driver:  sqlite3.Database
+const db = await sqlite.open({
+    filename: './data_plan.db',
+    driver: sqlite3.Database
 });
 
 await db.migrate();
@@ -61,4 +65,4 @@ app.post('/api/phonebill/', async (req, res) => {
     }, 0);
 
     res.json({ total });
-});
+})
