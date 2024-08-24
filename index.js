@@ -1,6 +1,8 @@
 import express from 'express';
 import * as sqlite from 'sqlite';
 import sqlite3 from 'sqlite3';
+import cors from 'cors';
+import {phoneBillCalculator} from './phone.js';
 
 
 const app = express();
@@ -12,6 +14,7 @@ app.listen(PORT, () => {
 
 app.use(express.static('public'))
 app.use(express.json())
+app.cors(cors());
 
 
 
@@ -29,21 +32,21 @@ app.get('/api/price_plans/', async (_req, res) => {
 });
 
 
-app.post('/api/price_plan/create', async (req, res) => {
+app.post('/api/price_plans/create', async (req, res) => {
     const { name, call_cost, sms_cost } = req.body;
     await db.run('INSERT INTO price_plan (plan_name, call_price, sms_price) VALUES (?, ?, ?)', [name, call_cost, sms_cost]);
     res.status(201).json({ message: 'Price plan created successfully' });
 });
 
 
-app.post('/api/price_plan/update', async (req, res) => {
+app.post('/api/price_plans/update', async (req, res) => {
     const { name, call_cost, sms_cost } = req.body;
     await db.run('UPDATE price_plan SET call_price = ?, sms_price = ? WHERE plan_name = ?', [call_cost, sms_cost, name]);
     res.json({ message: 'Price plan updated successfully' });
 });
 
 
-app.post('/api/price_plan/delete', async (req, res) => {
+app.post('/api/price_plans/delete', async (req, res) => {
     const { id } = req.body;
     await db.run('DELETE FROM price_plan WHERE id = ?', [id]);
     res.json({ message: 'Price plan deleted successfully' });

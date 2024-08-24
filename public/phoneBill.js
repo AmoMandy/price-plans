@@ -1,5 +1,5 @@
 document.addEventListener('alpine:init', () => {
-    function phoneBillCalculator() {
+    alpine.data('phoneBillCalculator', () => {
         return {
             pricePlans: '',
             selectedPlan: '',
@@ -38,5 +38,5 @@ document.addEventListener('alpine:init', () => {
                 this.total = result.total;
             },
         };
-    };
+    });
 });    

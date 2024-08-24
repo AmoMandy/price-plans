@@ -1,43 +1,42 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Total Phone Bill</title>
+    <title>Phone Bill</title>
     <script defer src="//unpkg.com/alpinejs"></script>`
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="phoneBill.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <div x-data="phoneBillCalculator()" x-init="init" class="container">
-        <h1>Total Phone Bill</h1>
 
-        <!-- Price Plan Selection -->
-        <div>
+<body>
+
+    <div class="container" x-data="phoneBillCalculator" x-init="init()">
+        <h1>Phone Bill Calculator</h1>
+        
+        <div class="form-group">
             <label for="pricePlan">Select Price Plan:</label>
             <select id="pricePlan" x-model="selectedPlan">
-                <template x-for="plan in pricePlans" :key="plan.id">
+                <template x-for="plan in pricePlans" :key="plan.plan_name">
                     <option :value="plan.plan_name" x-text="plan.plan_name"></option>
                 </template>
             </select>
         </div>
-
-        <!-- Actions Input -->
-        <div>
-            <label for="actions">Enter Actions</label>
-            <input type="text" id="actions" x-model="actions" placeholder="call, sms, call"></input>
+    
+        <div class="form-group">
+            <label for="actions">Enter Actions (comma separated):</label>
+            <input type="text" id="actions" x-model="actions" placeholder="e.g., call, sms, call">
         </div>
-
-        <!-- Calculate Button -->
-        <div>
-            <button @click="calculateBill">Calculate Total</button>
-        </div>
-
-        <!-- Display Total -->
-        <div x-show="total !== null">
-            <h2>Total Cost: <span x-text="total"></span></h2>
+    
+        <button @click="calculateBill()">Calculate Total</button>
+    
+        <div class="result" x-show="total !== 0">
+            <h2>Total Bill: R<span x-text="total.toFixed(2)"></span></h2>
         </div>
     </div>
+    
+    </body>
 
-    <script src="./alpine.js"></script>
-</body>
 </html>
