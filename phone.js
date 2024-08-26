@@ -1,20 +1,19 @@
-export  async function phoneBillCalculator( selectedPlan, sms, call) {
-    // Get the selected price plan
-    const plan = pricePlans[ selectedPlan];
-    
-    if (!plan) {
-        return 'Invalid price plan selected';
+export async function phoneBillCalculator(pricePlan, actions, db) {
+    let calls = 0;
+    let sms = 0;
+
+    try {
+        actions.split(', ').forEach(action => {
+            if (action === 'call') calls++;
+            else if (action === 'sms') sms++;
+        });
+
+        let data = await db.get("SELECT * FROM price_plan WHERE plan_name = $1", [pricePlan])
+
+        const total = (calls * data.call_price) + (sms * data.sms_price);
+        return total.toFixed(2);
+    } catch (error) {
+        console.log(error);
+
     }
-
-    // Calculate the total cost
-    const totalSmsCost = sms * plan.smsCost;
-    const totalCallCost = call * plan.callCost;
-    const totalCost = totalSmsCost + totalCallCost;
-
-    return {
-       selectedPlan: plan.name,
-        smsCost: totalSmsCost.toFixed(2),
-        callCost: totalCallCost.toFixed(2),
-        totalCost: totalCost.toFixed(2)
-    };
 }

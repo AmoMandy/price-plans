@@ -1,7 +1,22 @@
-GET http://localhost:4011/api/price_plans/
+### POST /api/phonebill/
+POST http://localhost:4011/api/phonebill
+Content-Type: application/json
 
-### 
-POST http://localhost:4011/api/price_plan/create
+{
+    "price_plan": "sms 101",
+    "actions": "call, sms, call"
+}
+
+
+
+### GET /api/price_plans/
+GET http://localhost:4011/api/price_plans
+Content-Type: application/json
+
+
+
+### POST /api/price_plan/create
+POST http://localhost:4011/api/price_plans/create
 Content-Type: application/json
 
 {
@@ -10,8 +25,9 @@ Content-Type: application/json
     "sms_cost": 0.45
 }
 
-### 
-POST http://localhost:4011/api/price_plan/update
+
+### POST /api/price_plan/update
+POST http://localhost:4011/api/price_plans/update
 Content-Type: application/json
 
 {
@@ -20,19 +36,12 @@ Content-Type: application/json
     "sms_cost": 0.50
 }
 
-### 
-POST http://localhost:4011/api/price_plan/delete
+###
+
+### POST /api/price_plans/delete
+POST http://localhost:4011/api/price_plans/delete
 Content-Type: application/json
 
 {
-    "id": 1
-}
-
-### 
-POST http://localhost:4011/api/phonebill/
-Content-Type: application/json
-
-{
-    "price_plan": "sms 101",
-    "actions": "call, sms, call"
+    "id": 9
 }

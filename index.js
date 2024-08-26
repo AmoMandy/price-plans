@@ -14,7 +14,7 @@ app.listen(PORT, () => {
 
 app.use(express.static('public'))
 app.use(express.json())
-app.cors(cors());
+app.use(cors());
 
 
 
@@ -25,6 +25,12 @@ const db = await sqlite.open({
 
 await db.migrate();
 
+app.post('/api/phonebill/', async (req, res) => {
+    const {price_plan, actions} = req.body;
+    const pricePlan = await db.get('select * from price_plan where plan_name = $1', [price_plan]);
+    const total = totalPhoneBill(actions,sms_price,call_price);
+    return res.status(200).json({total});
+})
 
 app.get('/api/price_plans/', async (_req, res) => {
     const pricePlans = await db.all('SELECT * FROM price_plan');
@@ -53,19 +59,19 @@ app.post('/api/price_plans/delete', async (req, res) => {
 });
 
 
-app.post('/api/phonebill/', async (req, res) => {
-    const { price_plan, actions } = req.body;
-    const plan = await db.get('SELECT * FROM price_plan WHERE plan_name = ?', [price_plan]);
+// app.post('/api/phonebill/', async (req, res) => {
+//     const { price_plan, actions } = req.body;
+//     const plan = await db.get('SELECT * FROM price_plan WHERE plan_name = ?', [price_plan]);
 
-    if (!plan) {
-        return res.status(400).json({ error: 'Invalid price plan' });
-    }
+//     if (!plan) {
+//         return res.status(400).json({ error: 'Invalid price plan' });
+//     }
 
-    const total = actions.split(', ').reduce((sum, action) => {
-        if (action === 'call') return sum + plan.call_price;
-        if (action === 'sms') return sum + plan.sms_price;
-        return sum;
-    }, 0);
+//     const total = actions.split(', ').reduce((sum, action) => {
+//         if (action === 'call') return sum + plan.call_price;
+//         if (action === 'sms') return sum + plan.sms_price;
+//         return sum;
+//     }, 0);
 
-    res.json({ total });
-})
+//     res.json({ total });
+// })
