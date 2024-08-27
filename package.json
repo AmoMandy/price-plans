@@ -30,8 +30,12 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.19.2",
-    "mocha": "^10.7.3",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "axios-mock-adapter": "^2.0.0",
+    "chai": "^5.1.1",
+    "mocha": "^10.7.3"
   }
 }
