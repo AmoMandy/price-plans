@@ -43,6 +43,7 @@ document.addEventListener('alpine:init', () => {
         createPricePlan() {
             axios.post('/api/price_plan/create', this.newPlan)
                 .then(response => {
+                    console.log(response.newPlan);
                     this.fetchPricePlans(); // Refresh list
                     this.newPlan = { name: '', call_cost: '', sms_cost: '' };
                 })
@@ -55,6 +56,7 @@ document.addEventListener('alpine:init', () => {
         updatePricePlan() {
             axios.post('/api/price_plan/update', this.updatePlan)
                 .then(response => {
+                    console.log(response.updatePlan);
                     this.fetchPricePlans(); // Refresh list
                     this.updatePlan = { name: '', call_cost: '', sms_cost: '' }; // Reset fields
                 })
@@ -67,6 +69,7 @@ document.addEventListener('alpine:init', () => {
         deletePricePlan() {
             axios.post('/api/price_plan/delete', { id: this.deletePlanId })
                 .then(response => {
+                    console.log(response.deletePlanId);
                     this.fetchPricePlans(); // Refresh list
                     this.deletePlanId = ''; // Reset field
                 })
