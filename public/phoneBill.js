@@ -1,6 +1,6 @@
 document.addEventListener('alpine:init', () => {
     Alpine.data('pricePlan', () => ({
-        pricePlans: [],
+        pricePlans: '',
         selectedPricePlan: '',
         actions: '',
         newPlan: { name: '', call_cost: '', sms_cost: '' },
@@ -16,7 +16,9 @@ document.addEventListener('alpine:init', () => {
         fetchPricePlans() {
             axios.get('/api/price_plans')
                 .then(response => {
-                    this.pricePlans = response.data.price_plans;
+                    console.log( response.data);
+                    
+                    this.pricePlans = response.data;
                 })
                 .catch(error => {
                     console.error('Error fetching price plans:', error);

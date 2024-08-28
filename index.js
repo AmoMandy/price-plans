@@ -3,7 +3,7 @@ import * as sqlite from 'sqlite';
 import sqlite3 from 'sqlite3';
 import cors from 'cors';
 import {phoneBillCalculator} from './phone.js';
-import axios from 'axios';
+// import axios from 'axios';
 
 const app = express();
 const PORT = process.env.PORT || 4011;
@@ -15,7 +15,7 @@ app.listen(PORT, () => {
 app.use(express.static('public'))
 app.use(express.json())
 app.use(cors());
-app.use(axios)
+// app.use(axios)
 
 
 
@@ -28,8 +28,12 @@ await db.migrate();
 
 app.post('/api/phonebill/', async (req, res) => {
     const {price_plan, actions} = req.body;
-    const pricePlan = await db.get('select * from price_plan where plan_name = $1', [price_plan]);
-    const total = phoneBillCalculator(actions,sms_price,call_price);
+    // const pricePlan = await db.get('select * from price_plan where plan_name = $1', [price_plan]);
+    // console.log(pricePlan);
+    
+    const total = await phoneBillCalculator(price_plan,actions, db);
+    console.log(total);
+    
     return res.status(200).json({total});
 })
 
