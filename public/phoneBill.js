@@ -9,6 +9,9 @@ document.addEventListener('alpine:init', () => {
         showPricePlans: false,
         billTotal: '',
 
+        init() {
+            this.fetchPricePlans();
+        },
         // Fetch all available price plans
         fetchPricePlans() {
             axios.get('/api/price_plans')
@@ -39,7 +42,7 @@ document.addEventListener('alpine:init', () => {
             axios.post('/api/price_plan/create', this.newPlan)
                 .then(response => {
                     this.fetchPricePlans(); // Refresh list
-                    this.newPlan = { name: '', call_cost: '', sms_cost: '' }; 
+                    this.newPlan = { name: '', call_cost: '', sms_cost: '' };
                 })
                 .catch(error => {
                     console.error('Error creating price plan:', error);

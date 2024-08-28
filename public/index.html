@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phone Bill</title>
-    <script defer src="//unpkg.com/alpinejs"></script>`
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="phoneBill.js"></script>
     <link rel="stylesheet" href="style.css">
 </head>
@@ -64,7 +64,7 @@
     </div>
 
     <div class="section">
-        <h3>Update an existing price plan</h3>
+        <h3>Update the price plan</h3>
         ID: <input type="text" x-model="updatePlan.name">
         New call cost: <input type="number" x-model="updatePlan.call_cost">
         New SMS cost: <input type="number" x-model="updatePlan.sms_cost">
@@ -72,7 +72,7 @@
     </div>
 
     <div class="section">
-        <h3>Delete an existing price plan</h3>
+        <h3>Delete the price plan</h3>
         ID: <input type="number" x-model="deletePlanId">
         <button @click="deletePricePlan()">Delete</button>
     </div>
