@@ -57,7 +57,7 @@
 
     <div class="section">
         <h3>Create a new price plan</h3>
-        ID: <input type="text" x-model="newPlan.name">
+        Name:<input type="text" x-model="newPlan.name">
         Call cost: <input type="number" x-model="newPlan.call_cost">
         SMS cost: <input type="number" x-model="newPlan.sms_cost">
         <button @click="createPricePlan()">Create</button>
@@ -65,7 +65,7 @@
 
     <div class="section">
         <h3>Update the price plan</h3>
-        ID: <input type="text" x-model="updatePlan.name">
+        Name: <input type="text" x-model="updatePlan.name">
         New call cost: <input type="number" x-model="updatePlan.call_cost">
         New SMS cost: <input type="number" x-model="updatePlan.sms_cost">
         <button @click="updatePricePlan()">Update</button>
