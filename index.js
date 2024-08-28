@@ -17,6 +17,8 @@ app.use(express.json())
 app.use(cors());
 // app.use(axios)
 
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 
 const db = await sqlite.open({
@@ -45,14 +47,16 @@ app.get('/api/price_plans/', async (_req, res) => {
 
 app.post('/api/price_plans/create', async (req, res) => {
     const { name, call_cost, sms_cost } = req.body;
-    await db.run('INSERT INTO price_plan (plan_name, call_price, sms_price) VALUES (?, ?, ?)', [name, call_cost, sms_cost]);
+    console.log(name, call_cost, sms_cost);
+    
+    await db.run('INSERT INTO price_plan (plan_name, call_price, sms_price) VALUES ($1, $2, $3)', [name, call_cost, sms_cost]);
     res.status(201).json({ message: 'Price plan created successfully' });
 });
 
 
 app.post('/api/price_plans/update', async (req, res) => {
     const { name, call_cost, sms_cost } = req.body;
-    await db.run('UPDATE price_plan SET call_price = ?, sms_price = ? WHERE plan_name = ?', [call_cost, sms_cost, name]);
+    await db.run('UPDATE price_plan SET call_price = $1, sms_price = $2 WHERE plan_name = $3', [call_cost, sms_cost, name]);
     res.json({ message: 'Price plan updated successfully' });
 });
 

@@ -41,33 +41,33 @@ document.addEventListener('alpine:init', () => {
 
         // Create a new price plan
         createPricePlan() {
-            axios.post('/api/price_plan/create', this.newPlan)
+            axios.post('/api/price_plans/create', this.newPlan)
                 .then(response => {
-                    console.log(response.newPlan);
+                    console.log(response.data);
                     this.fetchPricePlans(); // Refresh list
                     this.newPlan = { name: '', call_cost: '', sms_cost: '' };
                 })
                 .catch(error => {
-                    console.error('Error creating price plan:', error);
+                    console.error('Error creating price plan:', 'error');
                 });
         },
 
         // Update an existing price plan
         updatePricePlan() {
-            axios.post('/api/price_plan/update', this.updatePlan)
+            axios.post('/api/price_plans/update', this.updatePlan)
                 .then(response => {
                     console.log(response.updatePlan);
                     this.fetchPricePlans(); // Refresh list
-                    this.updatePlan = { name: '', call_cost: '', sms_cost: '' }; // Reset fields
+                    this.updatePlan = { name: '', call_price: '', sms_price: '' }; // Reset fields
                 })
                 .catch(error => {
-                    console.error('Error updating price plan:', error);
+                    console.error('Error updating price plan:', 'error');
                 });
         },
 
         // Delete a price plan
         deletePricePlan() {
-            axios.post('/api/price_plan/delete', { id: this.deletePlanId })
+            axios.post('/api/price_plans/delete', { id: this.deletePlanId })
                 .then(response => {
                     console.log(response.deletePlanId);
                     this.fetchPricePlans(); // Refresh list
